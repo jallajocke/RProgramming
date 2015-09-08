@@ -1,10 +1,14 @@
 ## Functions for creating and getting the inverse of a matrix, caching
 ## the value of inverse once calculated, which reduces computations for
-## every retrieval of the inverse.
+## every succeeding retrieval of the inverse.
 
 
 ## Creates a matrix from 'x' with a cached inverse. Returns a list 
-## of get/set functions for the matrix and its inverse.
+## of get/set functions for the matrix and its inverse:
+# x$set - sets the value of the matrix
+# x$get - gets the value of the matrix
+# x$setInverse - sets the value of the inverse
+# x$getInverse - gets the value of the inverse
 
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL
@@ -25,8 +29,7 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
   inv <- x$getInverse()
   if(is.null(inv)) {
-    m <- x$get()
-    inv <- solve(m)
+    inv <- solve(x$get())
     x$setInverse(inv)
   }
   inv
